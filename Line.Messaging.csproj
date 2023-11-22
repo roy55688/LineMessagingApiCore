@@ -10,7 +10,7 @@
 		<Company></Company>
 		<Product>Line Messaging API</Product>
 		<Description>SDK for the LINE Messaging API for C#(for .NET core 6)</Description>
-		<Version>1.0.0</Version>
+		<Version>1.1.0</Version>
 		<Copyright>© 2018 pierre3</Copyright>
 		<license>https://github.com/pierre3/LineMessagingApi/blob/master/LICENSE</license>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -27,6 +27,7 @@
 			5.Modified content references to the data source at https://ithelp.ithome.com.tw/users/20106865/ironman/2732.
 		</PackageReleaseNotes>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageProjectUrl>https://github.com/roy55688/LineMessagingApiCore</PackageProjectUrl>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />

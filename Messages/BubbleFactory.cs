@@ -23,66 +23,11 @@ namespace Line.Messaging.Messages
             string buttonUrl = "",
             string[]? innerText = null,
             ComponentSize componentSize = ComponentSize.Full, AspectMode aspectMode = AspectMode.Cover)
-        {
-            BubbleContainer container = new()
-            {
-                Hero = new ImageComponent
-                {
-                    Url = pictureUrl,
-                    Size = componentSize,
-                    AspectRatio = aspectRatio,
-                    AspectMode = aspectMode
-                },
-                Body = new BoxComponent
-                {
-                    Layout = BoxLayout.Vertical,
-                    Spacing = Spacing.Md,
-                    Contents = new List<IFlexComponent>
-                    {
-                        new TextComponent
-                        {
-                            Text = HeaderText,
-                            Weight = Weight.Bold,
-                            Size = ComponentSize.Xl
-                        },
-                        new SeparatorComponent()
-                    }
-                },
-                Footer = new BoxComponent
-                {
-                    Layout = BoxLayout.Vertical,
-                    Spacing = Spacing.Sm,
-                    Contents = new List<IFlexComponent>()
-                }
-            };
-
-            if (!string.IsNullOrEmpty(buttonText) && !string.IsNullOrEmpty(buttonUrl))
-            {
-                container.AddFooterContents(
-                        new ButtonComponent
-                        {
-                            Style = ButtonStyle.Secondary,
-                            Height = ButtonHeight.Sm,
-                            Action = new UriTemplateAction(buttonText, buttonUrl)
-                        }
-                    );
-
-                container.AddFooterContents(new BoxComponent{Layout = BoxLayout.Vertical});
-                            
-            }
-
-            if (innerText is not null && innerText.Length > 0)
-            {
-                container.AddMutiTextToContainerBody(innerText);
-            }
-
-            return container;
-        }
-
+            => CreateBubble(aspectRatio, pictureUrl, HeaderText, new Dictionary<string, string> { { buttonText, buttonUrl } }, innerText, componentSize, aspectMode);
+        
         /// <summary>
         /// Create bubble with picture in hero
         /// </summary>
-        /// <param name="buttonTextAndUrl">Key is text,value is url</param>
         /// <returns></returns>
         public static BubbleContainer CreateImageBubble(
            AspectRatio aspectRatio,
@@ -91,66 +36,11 @@ namespace Line.Messaging.Messages
            Dictionary<string, string> buttonTextAndUrl,
            string[]? innerText = null,
            ComponentSize componentSize = ComponentSize.Full, AspectMode aspectMode = AspectMode.Cover)
-        {
-            BubbleContainer container = new()
-            {
-                Hero = new ImageComponent
-                {
-                    Url = pictureUrl,
-                    Size = componentSize,
-                    AspectRatio = aspectRatio,
-                    AspectMode = aspectMode
-                },
-                Body = new BoxComponent
-                {
-                    Layout = BoxLayout.Vertical,
-                    Spacing = Spacing.Md,
-                    Contents = new List<IFlexComponent>
-                    {
-                        new TextComponent
-                        {
-                            Text = HeaderText,
-                            Weight = Weight.Bold,
-                            Size = ComponentSize.Xl
-                        },
-                        new SeparatorComponent()
-                    }
-                }
-            };
+            => CreateBubble(aspectRatio, pictureUrl, HeaderText, buttonTextAndUrl, innerText, componentSize, aspectMode);
 
-            foreach (var TextAndUrl in buttonTextAndUrl)
-            {
-                container.AddFooterContents(
-                    new BoxComponent
-                    {
-                        Layout = BoxLayout.Vertical,
-                        Spacing = Spacing.Sm,
-                        Contents = new List<IFlexComponent>
-                        {
-                            new ButtonComponent
-                            {
-                                Style = ButtonStyle.Secondary,
-                                Height = ButtonHeight.Sm,
-                                Action = new UriTemplateAction(TextAndUrl.Key, TextAndUrl.Value)
-                            },
-                            new BoxComponent
-                            {
-                                Layout = BoxLayout.Vertical
-                            }
-                        }
-                    });
-            }
-
-            if (innerText is not null && innerText.Length > 0)
-            {
-                container.AddMutiTextToContainerBody(innerText);
-            }
-
-            return container;
-        }
 
         /// <summary>
-        /// Create bubble without picture in hero
+        /// Create bubble without hero(picture)
         /// </summary>
         /// <returns></returns>
         public static BubbleContainer CreateDefaultBubble(
@@ -158,122 +48,22 @@ namespace Line.Messaging.Messages
             string buttonText = "",
             string buttonUrl = "",
             string[]? innerText = null)
-        {
-            BubbleContainer container = new()
-            {
-                Hero = new ImageComponent
-                { },
-                Body = new BoxComponent
-                {
-                    Layout = BoxLayout.Vertical,
-                    Spacing = Spacing.Md,
-                    Contents = new List<IFlexComponent>
-                    {
-                        new TextComponent
-                        {
-                            Text = HeaderText,
-                            Weight = Weight.Bold,
-                            Size = ComponentSize.Xl
-                        },
-                        new SeparatorComponent()
-                    }
-                }
-            };
-
-            if (!string.IsNullOrEmpty(buttonText) && !string.IsNullOrEmpty(buttonUrl))
-            {
-                container.AddFooterContents(
-                    new BoxComponent
-                    {
-                        Layout = BoxLayout.Vertical,
-                        Spacing = Spacing.Sm,
-                        Contents = new List<IFlexComponent>
-                        {
-                            new ButtonComponent
-                            {
-                                Style = ButtonStyle.Secondary,
-                                Height = ButtonHeight.Sm,
-                                Action = new UriTemplateAction(buttonText, buttonUrl)
-                            },
-                            new BoxComponent
-                            {
-                                Layout = BoxLayout.Vertical
-                            }
-                        }
-                    });
-            }
-
-            if (innerText is not null && innerText.Length > 0)
-            {
-                container.AddMutiTextToContainerBody(innerText);
-            }
-
-            return container;
-        }
+            =>CreateBubble(null, null, HeaderText, new Dictionary<string, string> { { buttonText, buttonUrl } }, innerText);
 
         /// <summary>
-        /// Create bubble without picture in hero
+        /// Create bubble without hero(picture)
         /// </summary>
-        /// <param name="buttonTextAndUrl">Key is text,value is url</param>
         /// <returns></returns>
         public static BubbleContainer CreateDefaultBubble(
             string HeaderText,
-           Dictionary<string, string> buttonTextAndUrl,
+            Dictionary<string, string> buttonTextAndUrl,
             string[]? innerText = null)
-        {
-            BubbleContainer container = new()
-            {
-                Hero = new ImageComponent
-                { },
-                Body = new BoxComponent
-                {
-                    Layout = BoxLayout.Vertical,
-                    Spacing = Spacing.Md,
-                    Contents = new List<IFlexComponent>
-                    {
-                        new TextComponent
-                        {
-                            Text = HeaderText,
-                            Weight = Weight.Bold,
-                            Size = ComponentSize.Xl
-                        },
-                        new SeparatorComponent()
-                    }
-                }
-            };
+            => CreateBubble(null, null, HeaderText, buttonTextAndUrl, innerText);
 
-            foreach (var TextAndUrl in buttonTextAndUrl)
-            {
-                container.AddFooterContents(
-                    new BoxComponent
-                    {
-                        Layout = BoxLayout.Vertical,
-                        Spacing = Spacing.Sm,
-                        Contents = new List<IFlexComponent>
-                        {
-                            new ButtonComponent
-                            {
-                                Style = ButtonStyle.Secondary,
-                                Height = ButtonHeight.Sm,
-                                Action = new UriTemplateAction(TextAndUrl.Key, TextAndUrl.Value)
-                            },
-                            new BoxComponent
-                            {
-                                Layout = BoxLayout.Vertical
-                            }
-                        }
-                    });
-            }
-
-            if (innerText is not null && innerText.Length > 0)
-            {
-                container.AddMutiTextToContainerBody(innerText);
-            }
-
-            return container;
-        }
-
-        public static void AddMutiTextToContainerBody(this BubbleContainer container, string[] innerText, string textColor = "#555555", bool htmlDecode = true)
+        /// <summary>
+        /// Insert inner text to container,one string in one line.
+        /// </summary>
+        public static void AddTextInContainerBody(this BubbleContainer container, string[] innerText, string textColor = "#555555", bool htmlDecode = true)
         {
             foreach (var line in innerText)
             {
@@ -304,6 +94,106 @@ namespace Line.Messaging.Messages
                     }
                 });
             }
+        }
+
+        private static BubbleContainer CreateBubble(
+            AspectRatio? aspectRatio,
+            string? pictureUrl,
+            string HeaderText,
+            Dictionary<string, string>? buttonTextAndUrl,
+            string[]? innerText = null,
+            ComponentSize componentSize = ComponentSize.Full, AspectMode aspectMode = AspectMode.Cover)
+        {
+
+            BubbleContainer container;
+            if (aspectRatio is not null && !string.IsNullOrEmpty(pictureUrl))
+            {
+
+                container = new()
+                {
+                    Hero = new ImageComponent
+                    {
+                        Url = pictureUrl,
+                        Size = componentSize,
+                        AspectRatio = aspectRatio,
+                        AspectMode = aspectMode
+                    },
+                    Body = new BoxComponent
+                    {
+                        Layout = BoxLayout.Vertical,
+                        Spacing = Spacing.Md,
+                        Contents = new List<IFlexComponent>
+                    {
+                        new TextComponent
+                        {
+                            Text = HeaderText,
+                            Weight = Weight.Bold,
+                            Size = ComponentSize.Xl
+                        },
+                        new SeparatorComponent()
+                    }
+                    },
+                    Footer = new BoxComponent
+                    {
+                        Layout = BoxLayout.Vertical,
+                        Spacing = Spacing.Sm,
+                        Contents = new List<IFlexComponent>()
+                    }
+                };
+            }
+            else
+            {
+                container = new()
+                {
+                    Body = new BoxComponent
+                    {
+                        Layout = BoxLayout.Vertical,
+                        Spacing = Spacing.Md,
+                        Contents = new List<IFlexComponent>
+                    {
+                        new TextComponent
+                        {
+                            Text = HeaderText,
+                            Weight = Weight.Bold,
+                            Size = ComponentSize.Xl
+                        },
+                        new SeparatorComponent()
+                    }
+                    },
+                    Footer = new BoxComponent
+                    {
+                        Layout = BoxLayout.Vertical,
+                        Spacing = Spacing.Sm,
+                        Contents = new List<IFlexComponent>()
+                    }
+                };
+            }
+
+            if (buttonTextAndUrl is not null && buttonTextAndUrl.Count > 0)
+            {
+                foreach (var TextAndUrl in buttonTextAndUrl)
+                {
+                    if (!string.IsNullOrWhiteSpace(TextAndUrl.Key) && !string.IsNullOrWhiteSpace(TextAndUrl.Value))
+                    {
+                        container.AddFooterContents(
+                            new ButtonComponent
+                            {
+                                Style = ButtonStyle.Secondary,
+                                Height = ButtonHeight.Sm,
+                                Action = new UriTemplateAction(TextAndUrl.Key, TextAndUrl.Value)
+                            }
+                        );
+                    }
+                }
+                container.AddFooterContents(new BoxComponent { Layout = BoxLayout.Vertical });
+            }
+
+            if (innerText is not null && innerText.Length > 0)
+            {
+                container.AddTextInContainerBody(innerText);
+            }
+
+            return container;
         }
     }
 }

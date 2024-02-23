@@ -1,25 +1,3 @@
-﻿# Perform issue fixes and version upgrade for Line.Messaging
-* Upgraded the framework from .NET Framework 4.6 to .NET Core 6 and addressed compatibility issues.
-* Updated URLs for image, audio, and video messages to use a different domain name.
-* Created message types for image, audio, and video.
-
-
-## The original project URL 
-* https://github.com/pierre3/LineMessagingApi/
-
-## Modified content references to the data source at
-* https://ithelp.ithome.com.tw/users/20106865/ironman/2732
-
-## Development environment
-* Visual Stdio 2022
-
-## TargetFramework
-* .net 6
-
-### Sample Code
-You can see my sample code in ApiSample folder
-
-```cs
 using LineBotTemplate.Applications;
 using Line.Messaging;
 using Line.Messaging.Webhooks;
@@ -47,4 +25,4 @@ app.MapPost("/linebot", async (IServiceProvider serviceProvider, ILineBotApplica
 
 app.Run();
 
-```
+

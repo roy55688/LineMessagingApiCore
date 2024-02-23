@@ -22,8 +22,8 @@ namespace Line.Messaging.Messages
             string buttonText = "",
             string buttonUrl = "",
             string[]? innerText = null,
-            ComponentSize componentSize = ComponentSize.Full, AspectMode aspectMode = AspectMode.Cover)
-            => CreateBubble(aspectRatio, pictureUrl, HeaderText, new Dictionary<string, string> { { buttonText, buttonUrl } }, innerText, componentSize, aspectMode);
+            ComponentSize componentSize = ComponentSize.Full, AspectMode aspectMode = AspectMode.Cover,ButtonStyle buttonStyle = ButtonStyle.Secondary)
+            => CreateBubble(aspectRatio, pictureUrl, HeaderText, new Dictionary<string, string> { { buttonText, buttonUrl } }, innerText, buttonStyle, componentSize, aspectMode);
         
         /// <summary>
         /// Create bubble with picture in hero
@@ -35,8 +35,8 @@ namespace Line.Messaging.Messages
            string HeaderText,
            Dictionary<string, string> buttonTextAndUrl,
            string[]? innerText = null,
-           ComponentSize componentSize = ComponentSize.Full, AspectMode aspectMode = AspectMode.Cover)
-            => CreateBubble(aspectRatio, pictureUrl, HeaderText, buttonTextAndUrl, innerText, componentSize, aspectMode);
+           ComponentSize componentSize = ComponentSize.Full, AspectMode aspectMode = AspectMode.Cover, ButtonStyle buttonStyle = ButtonStyle.Secondary)
+            => CreateBubble(aspectRatio, pictureUrl, HeaderText, buttonTextAndUrl, innerText, buttonStyle, componentSize, aspectMode);
 
 
         /// <summary>
@@ -47,8 +47,8 @@ namespace Line.Messaging.Messages
             string HeaderText,
             string buttonText = "",
             string buttonUrl = "",
-            string[]? innerText = null)
-            =>CreateBubble(null, null, HeaderText, new Dictionary<string, string> { { buttonText, buttonUrl } }, innerText);
+            string[]? innerText = null, ButtonStyle buttonStyle = ButtonStyle.Secondary)
+            =>CreateBubble(null, null, HeaderText, new Dictionary<string, string> { { buttonText, buttonUrl } }, innerText, buttonStyle);
 
         /// <summary>
         /// Create bubble without hero(picture)
@@ -57,44 +57,8 @@ namespace Line.Messaging.Messages
         public static BubbleContainer CreateDefaultBubble(
             string HeaderText,
             Dictionary<string, string> buttonTextAndUrl,
-            string[]? innerText = null)
-            => CreateBubble(null, null, HeaderText, buttonTextAndUrl, innerText);
-
-        /// <summary>
-        /// Insert inner text to container,one string in one line.
-        /// </summary>
-        public static void AddTextInContainerBody(this BubbleContainer container, string[] innerText, string textColor = "#555555", bool htmlDecode = true)
-        {
-            foreach (var line in innerText)
-            {
-                string cleanLine = htmlDecode ? HttpUtility.HtmlDecode(line) : line;
-
-                container.Body.Contents.Add(new BoxComponent
-                {
-                    Layout = BoxLayout.Vertical,
-                    Margin = Spacing.Lg,
-                    Spacing = Spacing.Sm,
-                    Contents = new IFlexComponent[]
-                    {
-                        new BoxComponent
-                        {
-                            Layout = BoxLayout.Baseline,
-                            Spacing = Spacing.Sm,
-                            Contents = new IFlexComponent[]
-                            {
-                                new TextComponent
-                                {
-                                    Text = cleanLine,
-                                    Color = textColor,
-                                    Size = ComponentSize.Sm,
-                                    Flex = 1
-                                }
-                            }
-                        }
-                    }
-                });
-            }
-        }
+            string[]? innerText = null, ButtonStyle buttonStyle = ButtonStyle.Secondary)
+            => CreateBubble(null, null, HeaderText, buttonTextAndUrl, innerText, buttonStyle);
 
         private static BubbleContainer CreateBubble(
             AspectRatio? aspectRatio,
@@ -102,7 +66,7 @@ namespace Line.Messaging.Messages
             string HeaderText,
             Dictionary<string, string>? buttonTextAndUrl,
             string[]? innerText = null,
-            ComponentSize componentSize = ComponentSize.Full, AspectMode aspectMode = AspectMode.Cover)
+            ButtonStyle buttonStyle = ButtonStyle.Secondary, ComponentSize componentSize = ComponentSize.Full, AspectMode aspectMode = AspectMode.Cover)
         {
 
             BubbleContainer container;
@@ -178,7 +142,7 @@ namespace Line.Messaging.Messages
                         container.AddFooterContents(
                             new ButtonComponent
                             {
-                                Style = ButtonStyle.Secondary,
+                                Style = buttonStyle,
                                 Height = ButtonHeight.Sm,
                                 Action = new UriTemplateAction(TextAndUrl.Key, TextAndUrl.Value)
                             }
@@ -195,5 +159,42 @@ namespace Line.Messaging.Messages
 
             return container;
         }
+
+        /// <summary>
+        /// Insert inner text to container,one string in one line.
+        /// </summary>
+        public static void AddTextInContainerBody(this BubbleContainer container, string[] innerText, string textColor = "#555555", bool htmlDecode = true)
+        {
+            foreach (var line in innerText)
+            {
+                string cleanLine = htmlDecode ? HttpUtility.HtmlDecode(line) : line;
+
+                container.Body.Contents.Add(new BoxComponent
+                {
+                    Layout = BoxLayout.Vertical,
+                    Margin = Spacing.Lg,
+                    Spacing = Spacing.Sm,
+                    Contents = new IFlexComponent[]
+                    {
+                        new BoxComponent
+                        {
+                            Layout = BoxLayout.Baseline,
+                            Spacing = Spacing.Sm,
+                            Contents = new IFlexComponent[]
+                            {
+                                new TextComponent
+                                {
+                                    Text = cleanLine,
+                                    Color = textColor,
+                                    Size = ComponentSize.Sm,
+                                    Flex = 1
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
     }
 }

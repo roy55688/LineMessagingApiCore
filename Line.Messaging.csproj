@@ -10,14 +10,11 @@
 		<Company></Company>
 		<Product>Line Messaging API</Product>
 		<Description>SDK for the LINE Messaging API for C#(for .NET core 6)</Description>
-		<Version>1.1.0</Version>
+		<Version>1.2.0</Version>
 		<Copyright>© 2018 pierre3</Copyright>
 		<license>https://github.com/pierre3/LineMessagingApi/blob/master/LICENSE</license>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageTags>Line Messaging API;line;bot</PackageTags>
-		<!--<PackageProjectUrl>https://github.com/pierre3/LineMessagingApi/</PackageProjectUrl>
-		<IncludeSymbols>true</IncludeSymbols>
-		<RepositoryUrl>https://github.com/pierre3/LineMessagingApi/</RepositoryUrl>-->
 		<RepositoryType>git</RepositoryType>
 		<PackageReleaseNotes>
 			1.The original project URL is https://github.com/pierre3/LineMessagingApi/.

@@ -17,7 +17,9 @@
 * .net 6
 
 ### Sample Code
-You can see my sample code in ApiSample folder
+You can see my sample code in 
+
+https://github.com/roy55688/LineMessagingApiCore/tree/main/ApiSample
 
 ```cs
 using LineBotTemplate.Applications;

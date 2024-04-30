@@ -19,7 +19,7 @@
 ### Sample Code
 You can see my sample code in 
 
-https://github.com/roy55688/LineMessagingApiCore/tree/main/ApiSample
+https://github.com/roy55688/LineBot_Sample
 
 ```cs
 using LineBotTemplate.Applications;

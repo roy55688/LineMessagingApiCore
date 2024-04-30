@@ -10,7 +10,7 @@
 		<Company></Company>
 		<Product>Line Messaging API</Product>
 		<Description>SDK for the LINE Messaging API for C#(for .NET core 6)</Description>
-		<Version>1.2.0</Version>
+		<Version>1.2.1</Version>
 		<Copyright>© 2018 pierre3</Copyright>
 		<license>https://github.com/pierre3/LineMessagingApi/blob/master/LICENSE</license>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>

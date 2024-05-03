@@ -4,7 +4,7 @@
 * Created message types for image, audio, and video.
 
 
-## Nugrt package URL
+## The Nuget package URL
 * https://www.nuget.org/packages/Line.Messaging.NETCore
 
 ## The original project URL 
